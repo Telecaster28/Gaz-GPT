@@ -3,21 +3,6 @@ import { AIProjectClient } from "@azure/ai-projects";
 
 export default async function (context, req) {
   try {
-        // 🔹 TEMPORARY TEST: Check if env vars are available
-    if (req.query.testEnv === "true") {
-      context.res = {
-        status: 200,
-        body: {
-          AZURE_CLIENT_ID: process.env.AZURE_CLIENT_ID ? "✅ Present" : "❌ Missing",
-          AZURE_TENANT_ID: process.env.AZURE_TENANT_ID ? "✅ Present" : "❌ Missing",
-          AZURE_CLIENT_SECRET: process.env.AZURE_CLIENT_SECRET ? "✅ Present" : "❌ Missing",
-          AZURE_SUBSCRIPTION_ID: process.env.AZURE_SUBSCRIPTION_ID ? "✅ Present" : "❌ Missing",
-        },
-      };
-      return; // stop here
-    }
-
-    // 🟦 Normal production logic below
     // Load credentials from env
     const credential = new ClientSecretCredential(
       process.env.AZURE_TENANT_ID,
